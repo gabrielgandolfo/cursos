@@ -14,37 +14,24 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-        ]);
-
-        return Course::create($validated);
+        $course = Course::create($request->all());
+        return response()->json($course, 201);
     }
 
-    public function show($id)
+    public function show(Course $course)
     {
-        return Course::findOrFail($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'name' => 'string',
-            'price' => 'numeric',
-        ]);
-
-        $course = Course::findOrFail($id);
-        $course->update($validated);
-
         return $course;
     }
 
-    public function destroy($id)
+    public function update(Request $request, Course $course)
     {
-        $course = Course::findOrFail($id);
-        $course->delete();
+        $course->update($request->all());
+        return response()->json($course, 200);
+    }
 
-        return response()->noContent();
+    public function destroy(Course $course)
+    {
+        $course->delete();
+        return response()->json(null, 204);
     }
 }
