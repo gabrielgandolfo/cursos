@@ -1,10 +1,10 @@
-code / <?php
+<?php
 namespace Deployer;
 
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'my_project');
+set('application', 'app');
 
 // Project repository
 set('repository', 'git@github.com:gabrielgandolfo/cursos.git');
